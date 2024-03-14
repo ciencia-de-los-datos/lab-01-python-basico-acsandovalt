@@ -1,7 +1,7 @@
 """
 Laboratorio de Programación Básica en Python para Manejo de Datos
 -----------------------------------------------------------------------------------------
-
+ 
 Este archivo contiene las preguntas que se van a realizar en el laboratorio.
 
 No puede utilizar pandas, numpy o scipy. Se debe utilizar solo las funciones de python
