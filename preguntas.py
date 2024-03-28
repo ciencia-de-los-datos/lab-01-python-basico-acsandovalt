@@ -21,24 +21,23 @@ def pregunta_01():
     214
 
     """
+    import csv
 
-import csv
+    # Inicializa la suma
+    suma = 0
 
-# Inicializa la suma
-suma = 0
+    # Abre el archivo CSV en modo lectura
+    with open('data.csv', newline='') as csvfile:
+        # Crea un objeto lector de CSV con espacio como delimitador
+        csv_reader = csv.reader(csvfile, delimiter='\t')
+        
+        # Itera sobre cada fila en el archivo CSV
+        for row in csv_reader:
+            # Suma el valor de la segunda columna a la suma acumulada
+            suma += int(row[1])  # Suponiendo que la segunda columna está en el índice 1
 
-# Abre el archivo CSV en modo lectura
-with open('data.csv', newline='') as csvfile:
-    # Crea un objeto lector de CSV con espacio como delimitador
-    csv_reader = csv.reader(csvfile, delimiter='\t')
-    
-    # Itera sobre cada fila en el archivo CSV
-    for row in csv_reader:
-        # Suma el valor de la segunda columna a la suma acumulada
-        suma += int(row[1])  # Suponiendo que la segunda columna está en el índice 1
-
-# Imprime el resultado
-print(suma)
+    # Retorna el resultado
+    return suma
   
 
 
@@ -82,11 +81,11 @@ def contar_letras(csv_file):
 
     return lista_duplas
 
-if __name__ == "__main__":
-    archivo_csv = 'data.csv'
-    frecuencia_letras = contar_letras(archivo_csv)
-    for letra, frecuencia in frecuencia_letras:
-        print(f'("{letra}", {frecuencia})')
+# if __name__ == "__main__":
+#     archivo_csv = 'data.csv'
+#     frecuencia_letras = contar_letras(archivo_csv)
+#     for letra, frecuencia in frecuencia_letras:
+#         print(f'("{letra}", {frecuencia})')
 
 
 
@@ -131,11 +130,11 @@ def sumar_numeros_por_letra(csv_file):
 
     return lista_duplas
 
-if __name__ == "__main__":
-    archivo_csv = 'data.csv'
-    suma_numeros = sumar_numeros_por_letra(archivo_csv)
-    for letra, suma in suma_numeros:
-        print(f'("{letra}", {suma})')
+# if __name__ == "__main__":
+#     archivo_csv = 'data.csv'
+#     suma_numeros = sumar_numeros_por_letra(archivo_csv)
+#     for letra, suma in suma_numeros:
+#         print(f'("{letra}", {suma})')
 
 
 
@@ -188,11 +187,11 @@ def contar_registros_por_mes(csv_file):
 
     return lista_duplas
 
-if __name__ == "__main__":
-    archivo_csv = 'data.csv'
-    cantidad_registros_por_mes = contar_registros_por_mes(archivo_csv)
-    for mes, cantidad in cantidad_registros_por_mes:
-        print(f'("{mes}", {cantidad})')
+# if __name__ == "__main__":
+#     archivo_csv = 'data.csv'
+#     cantidad_registros_por_mes = contar_registros_por_mes(archivo_csv)
+#     for mes, cantidad in cantidad_registros_por_mes:
+#         print(f'("{mes}", {cantidad})')
 
 
 
@@ -240,11 +239,11 @@ def obtener_maximo_minimo_ordenado_por_letra(csv_file):
 
     return resultado
 
-if __name__ == "__main__":
-    archivo_csv = 'data.csv'
-    max_min_ordenado = obtener_maximo_minimo_ordenado_por_letra(archivo_csv)
-    for letra, maximo, minimo in max_min_ordenado:
-        print(f'("{letra}", {maximo}, {minimo})')
+# if __name__ == "__main__":
+#     archivo_csv = 'data.csv'
+#     max_min_ordenado = obtener_maximo_minimo_ordenado_por_letra(archivo_csv)
+#     for letra, maximo, minimo in max_min_ordenado:
+#         print(f'("{letra}", {maximo}, {minimo})')
 
 
 
@@ -301,11 +300,11 @@ def obtener_min_max_valores_por_clave(csv_file):
 
     return resultado
 
-if __name__ == "__main__":
-    archivo_csv = 'data.csv'
-    min_max_por_clave = obtener_min_max_valores_por_clave(archivo_csv)
-    for clave, minimo, maximo in min_max_por_clave:
-        print(f'("{clave}", {minimo}, {maximo})')
+# if __name__ == "__main__":
+#     archivo_csv = 'data.csv'
+#     min_max_por_clave = obtener_min_max_valores_por_clave(archivo_csv)
+#     for clave, minimo, maximo in min_max_por_clave:
+#         print(f'("{clave}", {minimo}, {maximo})')
 
 
 
@@ -354,11 +353,11 @@ def agrupar_letras_por_valor_columna2(csv_file):
 
     return resultado
 
-if __name__ == "__main__":
-    archivo_csv = 'data.csv'
-    letras_por_valor = agrupar_letras_por_valor_columna2(archivo_csv)
-    for valor, letras in letras_por_valor:
-        print(f'({valor}, {letras})')
+# if __name__ == "__main__":
+#     archivo_csv = 'data.csv'
+#     letras_por_valor = agrupar_letras_por_valor_columna2(archivo_csv)
+#     for valor, letras in letras_por_valor:
+#         print(f'({valor}, {letras})')
 
 
 
@@ -408,11 +407,11 @@ def generar_lista_tuplas(csv_file):
 
     return lista_tuplas
 
-if __name__ == "__main__":
-    archivo_csv = 'data.csv'
-    lista_tuplas = generar_lista_tuplas(archivo_csv)
-    for valor, letras in lista_tuplas:
-        print(f'({valor}, {letras})')
+# if __name__ == "__main__":
+#     archivo_csv = 'data.csv'
+#     lista_tuplas = generar_lista_tuplas(archivo_csv)
+#     for valor, letras in lista_tuplas:
+#         print(f'({valor}, {letras})')
 
 
 
@@ -462,11 +461,11 @@ def contar_registros_por_clave_ordenado(csv_file):
 
     return registros_por_clave_ordenado
 
-if __name__ == "__main__":
-    archivo_csv = 'data.csv'
-    registros_por_clave_ordenado = contar_registros_por_clave_ordenado(archivo_csv)
-    for clave, cantidad in registros_por_clave_ordenado.items():
-        print(f'"{clave}": {cantidad}')
+# if __name__ == "__main__":
+#     archivo_csv = 'data.csv'
+#     registros_por_clave_ordenado = contar_registros_por_clave_ordenado(archivo_csv)
+#     for clave, cantidad in registros_por_clave_ordenado.items():
+#         print(f'"{clave}": {cantidad}')
 
 
 
@@ -508,11 +507,11 @@ def contar_elementos_columnas(csv_file):
 
     return lista_tuplas
 
-if __name__ == "__main__":
-    archivo_csv = 'data.csv'
-    lista_tuplas = contar_elementos_columnas(archivo_csv)
-    for tupla in lista_tuplas:
-        print(tupla)
+# if __name__ == "__main__":
+#     archivo_csv = 'data.csv'
+#     lista_tuplas = contar_elementos_columnas(archivo_csv)
+#     for tupla in lista_tuplas:
+#         print(tupla)
 
 
 
@@ -560,11 +559,11 @@ def sumar_columna2_por_letra_columna4(csv_file):
 
     return suma_por_letra_ordenado
 
-if __name__ == "__main__":
-    archivo_csv = 'data.csv'
-    suma_por_letra = sumar_columna2_por_letra_columna4(archivo_csv)
-    for letra, suma in suma_por_letra.items():
-        print(f'"{letra}": {suma}')
+# if __name__ == "__main__":
+#     archivo_csv = 'data.csv'
+#     suma_por_letra = sumar_columna2_por_letra_columna4(archivo_csv)
+#     for letra, suma in suma_por_letra.items():
+#         print(f'"{letra}": {suma}')
 
 
 
@@ -609,10 +608,10 @@ def sumar_valores_claves_por_letra_columna1(csv_file):
 
     return suma_valores_por_letra_ordenado
 
-if __name__ == "__main__":
-    archivo_csv = 'data.csv'
-    suma_valores_por_letra = sumar_valores_claves_por_letra_columna1(archivo_csv)
-    for letra, suma in suma_valores_por_letra.items():
-        print(f"'{letra}': {suma}")
+# if __name__ == "__main__":
+#     archivo_csv = 'data.csv'
+#     suma_valores_por_letra = sumar_valores_claves_por_letra_columna1(archivo_csv)
+#     for letra, suma in suma_valores_por_letra.items():
+#         print(f"'{letra}': {suma}")
 
 
