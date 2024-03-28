@@ -81,12 +81,10 @@ def contar_letras(csv_file):
 
     return lista_duplas
 
-# if __name__ == "__main__":
-#     archivo_csv = 'data.csv'
-#     frecuencia_letras = contar_letras(archivo_csv)
-#     for letra, frecuencia in frecuencia_letras:
-#         print(f'("{letra}", {frecuencia})')
-
+if __name__ == "__main__":
+    archivo_csv = 'data.csv'
+    frecuencia_letras = contar_letras(archivo_csv)
+    
 
 
 def pregunta_03():
