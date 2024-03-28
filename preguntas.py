@@ -60,7 +60,8 @@ def pregunta_02():
 import csv
 from collections import defaultdict
 
-def contar_letras(csv_file):
+def pregunta_02():
+    csv_file = 'data.csv'
     # Crear un diccionario para almacenar la frecuencia de cada letra
     frecuencia_letras = defaultdict(int)
 
@@ -80,10 +81,6 @@ def contar_letras(csv_file):
     lista_duplas.sort(key=lambda x: x[0])
 
     return lista_duplas
-
-if __name__ == "__main__":
-    archivo_csv = 'data.csv'
-    frecuencia_letras = contar_letras(archivo_csv)
     
 
 
