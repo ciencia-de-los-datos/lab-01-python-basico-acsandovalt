@@ -23,20 +23,14 @@ def pregunta_01():
     """
     import csv
 
-    # Inicializa la suma
     suma = 0
 
-    # Abre el archivo CSV en modo lectura
     with open('data.csv', newline='') as csvfile:
-        # Crea un objeto lector de CSV con espacio como delimitador
         csv_reader = csv.reader(csvfile, delimiter='\t')
         
-        # Itera sobre cada fila en el archivo CSV
         for row in csv_reader:
-            # Suma el valor de la segunda columna a la suma acumulada
-            suma += int(row[1])  # Suponiendo que la segunda columna está en el índice 1
+            suma += int(row[1])
 
-    # Retorna el resultado
     return suma
   
 
@@ -62,22 +56,15 @@ from collections import defaultdict
 
 def pregunta_02():
     csv_file = 'data.csv'
-    # Crear un diccionario para almacenar la frecuencia de cada letra
     frecuencia_letras = defaultdict(int)
 
-    # Abrir el archivo CSV y leerlo
     with open(csv_file, 'r', newline='') as file:
         csv_reader = csv.reader(file, delimiter='\t')
-        # Iterar sobre cada fila del archivo
         for row in csv_reader:
-            # Obtener el primer elemento de cada fila (primera columna)
             letra = row[0]
-            # Incrementar la frecuencia de la letra en el diccionario
             frecuencia_letras[letra] += 1
 
-    # Convertir el diccionario en una lista de duplas (letra, frecuencia)
     lista_duplas = list(frecuencia_letras.items())
-    # Ordenar la lista de duplas alfabéticamente por la letra
     lista_duplas.sort(key=lambda x: x[0])
 
     return lista_duplas
@@ -103,33 +90,19 @@ def pregunta_03():
 import csv
 from collections import defaultdict
 
-def sumar_numeros_por_letra(csv_file):
-    # Crear un diccionario para almacenar la suma de los números por letra
-    suma_numeros_por_letra = defaultdict(int)
-
-    # Abrir el archivo CSV y leerlo
+def pregunta_03():
+    csv_file = 'data.csv'
+    suma_por_letra = defaultdict(int)
+    
     with open(csv_file, 'r', newline='') as file:
         csv_reader = csv.reader(file, delimiter='\t')
-        # Iterar sobre cada fila del archivo
         for row in csv_reader:
-            # Obtener la letra de la primera columna y el número de la segunda columna
             letra = row[0]
             numero = int(row[1])
-            # Sumar el número a la suma correspondiente a la letra en el diccionario
-            suma_numeros_por_letra[letra] += numero
+            suma_por_letra[letra] += numero
 
-    # Convertir el diccionario en una lista de duplas (letra, suma de números)
-    lista_duplas = list(suma_numeros_por_letra.items())
-    # Ordenar la lista de duplas alfabéticamente por la letra
-    lista_duplas.sort(key=lambda x: x[0])
-
-    return lista_duplas
-
-# if __name__ == "__main__":
-#     archivo_csv = 'data.csv'
-#     suma_numeros = sumar_numeros_por_letra(archivo_csv)
-#     for letra, suma in suma_numeros:
-#         print(f'("{letra}", {suma})')
+    resultado = sorted(suma_por_letra.items())
+    return resultado
 
 
 
@@ -158,35 +131,21 @@ def pregunta_04():
 
 import csv
 from collections import defaultdict
-from datetime import datetime
 
-def contar_registros_por_mes(csv_file):
-    # Crear un diccionario para almacenar la cantidad de registros por mes
+def pregunta_04():
+    csv_file = 'data.csv'
     registros_por_mes = defaultdict(int)
 
-    # Abrir el archivo CSV y leerlo
+    
     with open(csv_file, 'r', newline='') as file:
         csv_reader = csv.reader(file, delimiter='\t')
-        # Iterar sobre cada fila del archivo
         for row in csv_reader:
-            # Obtener la fecha de la tercera columna y extraer el mes
             fecha = row[2]
-            mes = fecha.split('-')[1]  # Extraer el mes como una cadena
-            # Incrementar la cantidad de registros para ese mes
+            mes = fecha.split('-')[1]
             registros_por_mes[mes] += 1
 
-    # Convertir el diccionario en una lista de duplas (mes, cantidad de registros)
-    lista_duplas = list(registros_por_mes.items())
-    # Ordenar la lista de duplas por el mes
-    lista_duplas.sort(key=lambda x: x[0])
-
-    return lista_duplas
-
-# if __name__ == "__main__":
-#     archivo_csv = 'data.csv'
-#     cantidad_registros_por_mes = contar_registros_por_mes(archivo_csv)
-#     for mes, cantidad in cantidad_registros_por_mes:
-#         print(f'("{mes}", {cantidad})')
+    resultado = sorted(registros_por_mes.items())
+    return resultado
 
 
 
@@ -209,36 +168,20 @@ def pregunta_05():
 import csv
 from collections import defaultdict
 
-def obtener_maximo_minimo_ordenado_por_letra(csv_file):
-    # Crear un diccionario para almacenar los números correspondientes a cada letra
-    numeros_por_letra = defaultdict(list)
+def pregunta_05():
+    csv_file = 'data.csv'
+    max_min_por_letra = defaultdict(lambda: [float('-inf'), float('inf')])
 
-    # Abrir el archivo CSV y leerlo
     with open(csv_file, 'r', newline='') as file:
         csv_reader = csv.reader(file, delimiter='\t')
-        # Iterar sobre cada fila del archivo
         for row in csv_reader:
-            # Obtener la letra de la primera columna y el número de la segunda columna
             letra = row[0]
             numero = int(row[1])
-            # Agregar el número a la lista correspondiente a la letra en el diccionario
-            numeros_por_letra[letra].append(numero)
-
-    # Crear una lista de tuplas (letra, número máximo, número mínimo)
-    resultado = []
-    for letra in sorted(numeros_por_letra.keys()):
-        numeros = numeros_por_letra[letra]
-        maximo = max(numeros)
-        minimo = min(numeros)
-        resultado.append((letra, maximo, minimo))
-
+            max_min_por_letra[letra][0] = max(max_min_por_letra[letra][0], numero)  
+            max_min_por_letra[letra][1] = min(max_min_por_letra[letra][1], numero)  
+    
+    resultado = [(letra, max_min[0], max_min[1]) for letra, max_min in sorted(max_min_por_letra.items())]
     return resultado
-
-# if __name__ == "__main__":
-#     archivo_csv = 'data.csv'
-#     max_min_ordenado = obtener_maximo_minimo_ordenado_por_letra(archivo_csv)
-#     for letra, maximo, minimo in max_min_ordenado:
-#         print(f'("{letra}", {maximo}, {minimo})')
 
 
 
@@ -268,38 +211,22 @@ def pregunta_06():
 import csv
 from collections import defaultdict
 
-def obtener_min_max_valores_por_clave(csv_file):
-    # Crear un diccionario para almacenar los valores asociados a cada clave
-    valores_por_clave = defaultdict(list)
+def pregunta_06():
+    csv_file = 'data.csv'
+    min_max_por_clave = defaultdict(lambda: [float('inf'), float('-inf')])
 
-    # Abrir el archivo CSV y leerlo
     with open(csv_file, 'r', newline='') as file:
         csv_reader = csv.reader(file, delimiter='\t')
-        # Iterar sobre cada fila del archivo
         for row in csv_reader:
-            # Obtener el diccionario codificado de la quinta columna
-            diccionario_codificado = row[4]
-            # Decodificar el diccionario
-            diccionario_decodificado = dict(item.split(':') for item in diccionario_codificado.split(','))
-            # Agregar los valores a la lista correspondiente a cada clave en el diccionario
-            for clave, valor in diccionario_decodificado.items():
-                valores_por_clave[clave].append(int(valor))
+            diccionario = row[4].split(',')  
+            for elemento in diccionario:
+                clave, valor = elemento.split(':')
+                valor = int(valor)
+                min_max_por_clave[clave][0] = min(min_max_por_clave[clave][0], valor)  
+                min_max_por_clave[clave][1] = max(min_max_por_clave[clave][1], valor)  
 
-    # Crear una lista de tuplas (clave, valor mínimo, valor máximo) ordenada alfabéticamente por clave
-    resultado = []
-    for clave in sorted(valores_por_clave.keys()):
-        valores = valores_por_clave[clave]
-        minimo = min(valores)
-        maximo = max(valores)
-        resultado.append((clave, minimo, maximo))
-
+    resultado = [(clave, min_max[0], min_max[1]) for clave, min_max in sorted(min_max_por_clave.items())]
     return resultado
-
-# if __name__ == "__main__":
-#     archivo_csv = 'data.csv'
-#     min_max_por_clave = obtener_min_max_valores_por_clave(archivo_csv)
-#     for clave, minimo, maximo in min_max_por_clave:
-#         print(f'("{clave}", {minimo}, {maximo})')
 
 
 
@@ -328,31 +255,19 @@ def pregunta_07():
 import csv
 from collections import defaultdict
 
-def agrupar_letras_por_valor_columna2(csv_file):
-    # Crear un diccionario para almacenar las letras asociadas a cada valor de la columna 2
-    letras_por_valor = defaultdict(list)
+def pregunta_07():
+    csv_file = 'data.csv'
+    asociaciones = defaultdict(list)
 
-    # Abrir el archivo CSV y leerlo
     with open(csv_file, 'r', newline='') as file:
         csv_reader = csv.reader(file, delimiter='\t')
-        # Iterar sobre cada fila del archivo
         for row in csv_reader:
-            # Obtener la letra de la primera columna y el valor de la segunda columna
-            letra = row[0]
-            valor = int(row[1])
-            # Agregar la letra a la lista correspondiente al valor en el diccionario
-            letras_por_valor[valor].append(letra)
+            numero_columna_2 = int(row[1])
+            letra_columna_1 = row[0]
+            asociaciones[numero_columna_2].append(letra_columna_1)
 
-    # Crear una lista de tuplas (valor, lista de letras asociadas) ordenada por valor
-    resultado = [(valor, letras) for valor, letras in sorted(letras_por_valor.items())]
-
+    resultado = sorted(asociaciones.items())
     return resultado
-
-# if __name__ == "__main__":
-#     archivo_csv = 'data.csv'
-#     letras_por_valor = agrupar_letras_por_valor_columna2(archivo_csv)
-#     for valor, letras in letras_por_valor:
-#         print(f'({valor}, {letras})')
 
 
 
@@ -382,31 +297,22 @@ def pregunta_08():
 import csv
 from collections import defaultdict
 
-def generar_lista_tuplas(csv_file):
-    # Crear un diccionario para almacenar las letras asociadas a cada valor de la columna 2
-    letras_por_valor = defaultdict(list)
+def pregunta_08():
+    csv_file = 'data.csv'
+    asociaciones = defaultdict(list)
 
-    # Abrir el archivo CSV y leerlo
     with open(csv_file, 'r', newline='') as file:
         csv_reader = csv.reader(file, delimiter='\t')
-        # Iterar sobre cada fila del archivo
         for row in csv_reader:
-            # Obtener la letra de la primera columna y el valor de la segunda columna
-            letra = row[0]
-            valor = int(row[1])
-            # Agregar la letra a la lista correspondiente al valor en el diccionario
-            letras_por_valor[valor].append(letra)
+            numero_columna_2 = int(row[1])
+            letra_columna_1 = row[0]
+            asociaciones[numero_columna_2].append(letra_columna_1)
 
-    # Crear una lista de tuplas (valor, lista de letras asociadas) ordenada por valor
-    lista_tuplas = [(valor, sorted(set(letras))) for valor, letras in sorted(letras_por_valor.items())]
+    for numero, letras in asociaciones.items():
+        asociaciones[numero] = sorted(set(letras))
 
-    return lista_tuplas
-
-# if __name__ == "__main__":
-#     archivo_csv = 'data.csv'
-#     lista_tuplas = generar_lista_tuplas(archivo_csv)
-#     for valor, letras in lista_tuplas:
-#         print(f'({valor}, {letras})')
+    resultado = sorted(asociaciones.items())
+    return resultado
 
 
 
@@ -434,33 +340,19 @@ def pregunta_09():
 import csv
 from collections import defaultdict
 
-def contar_registros_por_clave_ordenado(csv_file):
-    # Crear un diccionario para almacenar la cantidad de registros por clave
-    registros_por_clave = defaultdict(int)
+def pregunta_09():
+    csv_file = 'data.csv'
+    clave_frecuencia = defaultdict(int)
 
-    # Abrir el archivo CSV y leerlo
     with open(csv_file, 'r', newline='') as file:
         csv_reader = csv.reader(file, delimiter='\t')
-        # Iterar sobre cada fila del archivo
         for row in csv_reader:
-            # Obtener el diccionario codificado de la quinta columna
-            diccionario_codificado = row[4]
-            # Decodificar el diccionario
-            diccionario_decodificado = dict(item.split(':') for item in diccionario_codificado.split(','))
-            # Contar la cantidad de registros para cada clave en el diccionario
-            for clave in diccionario_decodificado.keys():
-                registros_por_clave[clave] += 1
+            valores_columna_5 = row[4].split(',')
+            for valor in valores_columna_5:
+                clave, _ = valor.split(':')
+                clave_frecuencia[clave] += 1
 
-    # Ordenar el diccionario por las claves alfabéticamente
-    registros_por_clave_ordenado = dict(sorted(registros_por_clave.items()))
-
-    return registros_por_clave_ordenado
-
-# if __name__ == "__main__":
-#     archivo_csv = 'data.csv'
-#     registros_por_clave_ordenado = contar_registros_por_clave_ordenado(archivo_csv)
-#     for clave, cantidad in registros_por_clave_ordenado.items():
-#         print(f'"{clave}": {cantidad}')
+    return clave_frecuencia
 
 
 
@@ -485,28 +377,19 @@ def pregunta_10():
 
 import csv
 
-def contar_elementos_columnas(csv_file):
-    # Crear una lista para almacenar las tuplas con la cantidad de elementos en las columnas 4 y 5
-    lista_tuplas = []
+def pregunta_10():
+    csv_file = 'data.csv'
+    resultado = []
 
-    # Abrir el archivo CSV y leerlo
     with open(csv_file, 'r', newline='') as file:
         csv_reader = csv.reader(file, delimiter='\t')
-        # Iterar sobre cada fila del archivo
         for row in csv_reader:
-            # Contar los elementos en las columnas 4 y 5 para la fila actual
-            elementos_columna4 = len(row[3].split(','))
-            elementos_columna5 = len(row[4].split(','))
-            # Agregar la tupla a la lista
-            lista_tuplas.append((row[0], elementos_columna4, elementos_columna5))
+            letra_columna_1 = row[0]
+            elementos_columna_4 = len(row[3].split(','))
+            elementos_columna_5 = sum(1 for clave_valor in row[4].split(',') if clave_valor.strip())
+            resultado.append((letra_columna_1, elementos_columna_4, elementos_columna_5))
 
-    return lista_tuplas
-
-# if __name__ == "__main__":
-#     archivo_csv = 'data.csv'
-#     lista_tuplas = contar_elementos_columnas(archivo_csv)
-#     for tupla in lista_tuplas:
-#         print(tupla)
+    return resultado
 
 
 
@@ -532,33 +415,20 @@ def pregunta_11():
 import csv
 from collections import defaultdict
 
-def sumar_columna2_por_letra_columna4(csv_file):
-    # Crear un diccionario para almacenar la suma de la columna 2 para cada letra de la columna 4
+def pregunta_11():
+    csv_file = 'data.csv'
     suma_por_letra = defaultdict(int)
 
-    # Abrir el archivo CSV y leerlo
     with open(csv_file, 'r', newline='') as file:
         csv_reader = csv.reader(file, delimiter='\t')
-        # Iterar sobre cada fila del archivo
         for row in csv_reader:
-            # Obtener los elementos de la columna 4 y el valor de la columna 2
-            elementos_columna4 = row[3].split(',')
-            valor = int(row[1])
-            # Sumar el valor a cada letra correspondiente en el diccionario
-            for elemento in elementos_columna4:
-                for letra in elemento:
-                    suma_por_letra[letra] += valor
+            letras_columna_4 = row[3].split(',')
+            numero_columna_2 = int(row[1])
+            for letra in letras_columna_4:
+                suma_por_letra[letra] += numero_columna_2
 
-    # Ordenar el diccionario alfabéticamente por las claves
-    suma_por_letra_ordenado = dict(sorted(suma_por_letra.items()))
-
-    return suma_por_letra_ordenado
-
-# if __name__ == "__main__":
-#     archivo_csv = 'data.csv'
-#     suma_por_letra = sumar_columna2_por_letra_columna4(archivo_csv)
-#     for letra, suma in suma_por_letra.items():
-#         print(f'"{letra}": {suma}')
+    resultado = dict(sorted(suma_por_letra.items()))
+    return resultado
 
 
 
@@ -581,32 +451,17 @@ def pregunta_12():
 import csv
 from collections import defaultdict
 
-def sumar_valores_claves_por_letra_columna1(csv_file):
-    # Crear un diccionario para almacenar la suma de los valores de las claves por cada letra de la columna 1
-    suma_valores_por_letra = defaultdict(int)
+def pregunta_12():
+    csv_file = 'data.csv'
+    suma_por_letra = defaultdict(int)
 
-    # Abrir el archivo CSV y leerlo
     with open(csv_file, 'r', newline='') as file:
         csv_reader = csv.reader(file, delimiter='\t')
-        # Iterar sobre cada fila del archivo
         for row in csv_reader:
-            # Obtener la letra de la columna 1 y los elementos de la columna 5
-            letra_columna1 = row[0]
-            elementos_columna5 = row[4].split(',')
-            # Iterar sobre cada elemento y sumar los valores para cada clave
-            for elemento in elementos_columna5:
-                clave, valor = elemento.split(':')
-                suma_valores_por_letra[letra_columna1] += int(valor)
+            valores_columna_5 = row[4].split(',')
+            for valor in valores_columna_5:
+                clave, numero = valor.split(':')
+                suma_por_letra[row[0]] += int(numero)
 
-    # Ordenar el diccionario alfabéticamente por las claves
-    suma_valores_por_letra_ordenado = dict(sorted(suma_valores_por_letra.items()))
-
-    return suma_valores_por_letra_ordenado
-
-# if __name__ == "__main__":
-#     archivo_csv = 'data.csv'
-#     suma_valores_por_letra = sumar_valores_claves_por_letra_columna1(archivo_csv)
-#     for letra, suma in suma_valores_por_letra.items():
-#         print(f"'{letra}': {suma}")
-
+    return dict(suma_por_letra)
 
